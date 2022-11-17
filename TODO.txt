@@ -27,7 +27,8 @@ TODO:
         highscore?
         
 
-    enemy class
+    enemy class superclass
+        enemy type subclasses
     
     player class
     
