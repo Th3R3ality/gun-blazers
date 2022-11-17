@@ -10,7 +10,7 @@ class Player:
 
         #mechanical shit
         self.health = 100
-        self.movement_Speed = 1
+        self.movement_Speed = 0.4
         
         #movement shit
         self.x = 400
