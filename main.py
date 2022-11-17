@@ -1,8 +1,9 @@
-import pygame, sys, time, math
+import pygame, sys, time, math, c_player
 
 def main():
+    #intiliaze all the important stuff
     pygame.init()
-    pygame.display.set_caption('Quick Start')
+    pygame.display.set_caption('Gun Blazers')
     window_surface = pygame.display.set_mode((800, 600))
 
     background = pygame.Surface((800, 600))
@@ -10,8 +11,13 @@ def main():
 
     is_running = True
 
-    while is_running:
+    #initialize player 
+    player = 
 
+    #main game loop btw
+    while is_running:
+        
+        #UPADTE FUNCTION
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 is_running = False
