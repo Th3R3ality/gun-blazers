@@ -22,10 +22,9 @@ def main():
     
     pygame.mouse.set_cursor(pygame.cursors.diamond)
     
-    is_running = True
-
     #instantiate local_player 
     local_player = Player()
+
 
 
     #main game loop btw
@@ -40,10 +39,13 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+        
+        
+        #render/draw stuff
         window.blit(background, (0, 0))
         window.blit(fps_text, (10, 0))
-        #time = Tick()
         local_player.update(window, time)
+        
         pygame.display.update()
     
 
