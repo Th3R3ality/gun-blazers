@@ -10,6 +10,23 @@ IN PROGRESS:
 
 
 TODO:
+    mechanics:
+        game loop prolly
+        movement
+        shooting
+        upgardes
+        health
+        aim to cursor
+        shoot towards cursor
+    UI:
+        crosshair
+        kill counter
+        health bar
+        money
+        time spent in game
+        highscore?
+        
+
     enemy class
     
     player class
