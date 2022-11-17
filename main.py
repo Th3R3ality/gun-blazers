@@ -1,4 +1,7 @@
-import pygame, sys, time, math, c_player
+import pygame, sys, time, math
+
+from Classes import c_player, c_base_enemy
+
 
 def main():
     #intiliaze all the important stuff
@@ -12,7 +15,7 @@ def main():
     is_running = True
 
     #initialize player 
-    player = 
+    player = Player()
 
     #main game loop btw
     while is_running:
