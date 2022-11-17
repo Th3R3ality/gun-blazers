@@ -7,10 +7,10 @@ def main():
     #intiliaze all the important stuff
     pygame.init()
     pygame.display.set_caption('Gun Blazers')
-    window_surface = pygame.display.set_mode((800, 600))
-
+    window = pygame.display.set_mode((800, 600))
+    clock = pygame.time.Clock()
     background = pygame.Surface((800, 600))
-    background.fill(pygame.Color('#000000'))
+    background.fill(pygame.Color('#ffffff'))
 
     is_running = True
 
@@ -24,9 +24,9 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 is_running = False
-
-        window_surface.blit(background, (0, 0))
-
+        window.blit(background, (0, 0))
+        time = clock.tick(60)
+        player.update(window, time)
         pygame.display.update()
     
 
