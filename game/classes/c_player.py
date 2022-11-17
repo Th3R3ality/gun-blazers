@@ -24,6 +24,7 @@ class Player:
         pygame.draw.rect(surface, (244, 0, 0), (self.x, self.y, 64, 64))
 
 
+
         #movement
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
