@@ -1,6 +1,6 @@
 import pygame, sys, time, math
 
-from Classes.c_player import Player
+from classes.c_player import Player
 
 
 def main():
