@@ -7,11 +7,9 @@ pygame.init()
 clock = pygame.time.Clock()
 font = pygame.font.SysFont("Arial", 18)
 
-def deltaTime(time):
-    
+
 
 def main():
-    
     #intiliaze all the important stuff
     pygame.display.set_caption('Gun Blazers')
     window = pygame.display.set_mode((1600, 900))
@@ -33,6 +31,7 @@ def main():
             if event.type == pygame.QUIT:
                 is_running = False
         window.blit(background, (0, 0))
+        background.fill(pygame.Color('#ffffff'))
         window.blit(fps_text, (10, 0))
         #time = Tick()
         time = clock.tick()
