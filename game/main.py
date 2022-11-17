@@ -15,9 +15,9 @@ def main():
     #intiliaze all the important stuff
     pygame.display.set_caption('Gun Blazers')
     
-    window = pygame.display.set_mode((400, 300))
+    window = pygame.display.set_mode((800, 600))
     clock = pygame.time.Clock()
-    background = pygame.Surface((400, 300))
+    background = pygame.Surface((800, 600))
     background.fill(pygame.Color('#ffffff'))
     
     pygame.mouse.set_cursor(pygame.cursors.diamond)
