@@ -11,9 +11,9 @@ def main():
     clock = pygame.time.Clock()
     background = pygame.Surface((800, 600))
     background.fill(pygame.Color('#ffffff'))
-    cursor = "crosshair.png"
-    pygame.mouse.set_cursor()
+    pygame.mouse.set_cursor(pygame.cursors.diamond)
     is_running = True
+#gay
 
     #initialize player 
     player = Player()
