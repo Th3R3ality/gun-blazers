@@ -9,33 +9,44 @@ font = pygame.font.SysFont("Arial", 18)
 
 
 
+
+
 def main():
     #intiliaze all the important stuff
     pygame.display.set_caption('Gun Blazers')
-    window = pygame.display.set_mode((1600, 900))
+    
+    window = pygame.display.set_mode((400, 300))
     clock = pygame.time.Clock()
-    background = pygame.Surface((1600, 900))
+    background = pygame.Surface((400, 300))
     background.fill(pygame.Color('#ffffff'))
+    
     pygame.mouse.set_cursor(pygame.cursors.diamond)
-    is_running = True
+    
+    #instantiate local_player 
+    local_player = Player()
 
-    #initialize player 
-    player = Player()
+
 
     #main game loop btw
-    while is_running:
+    while True:
+    
+        #print(pygame.time.Clock.get_time())
+        deltaTime = clock.tick(10)/1000
+        
         #UPADTE FUNCTION
-        fps = str(int(clock.get_fps()))
-        fps_text = font.render(fps, 1, pygame.Color("black"))
+        fps_text = font.render(str(deltaTime), 1, pygame.Color("black"))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                is_running = False
+                pygame.quit()
+                sys.exit()
+        
+        
+        #render/draw stuff
         window.blit(background, (0, 0))
         background.fill(pygame.Color('#ffffff'))
         window.blit(fps_text, (10, 0))
-        #time = Tick()
-        time = clock.tick()
-        player.update(window, time)
+        local_player.update(window, time)
+        
         pygame.display.update()
     
 
