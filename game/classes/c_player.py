@@ -23,7 +23,7 @@ class Player:
         #self.image = pygame.transform.rotate(self.original_image, int(angle))
         #self.rect = self.image.get_rect(center=self.position)
 
-    def update(self, surface, time):
+    def update(self, surface, dt):
         #debug
         self.position = pygame.Vector2(self.x,self.y)
         pygame.draw.line(surface, (200, 0, 0), self.position, pygame.mouse.get_pos())
@@ -34,13 +34,13 @@ class Player:
         #movement
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
-            self.y -= self.movement_Speed * time
+            self.y -= self.movement_Speed * dt
         if keys[pygame.K_s]:
-            self.y += self.movement_Speed * time
+            self.y += self.movement_Speed * dt
         if keys[pygame.K_a]:
-            self.x -= self.movement_Speed * time
+            self.x -= self.movement_Speed * dt
         if keys[pygame.K_d]:
-            self.x += self.movement_Speed * time
+            self.x += self.movement_Speed * dt
 
 
 
