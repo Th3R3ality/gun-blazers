@@ -1,2 +1,2 @@
-# gun-blazers
-top down shooter made in python with pygame for a school project
+# Gun Blazers
+A top down shooter made in python for a pygame school project
