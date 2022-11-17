@@ -23,7 +23,7 @@ class Player:
         #draw the player
         pygame.draw.rect(surface, (244, 0, 0), (self.x, self.y, 64, 64))
 
-        #this is a test 2
+        #this is a test 2567564
 
         #movement
         keys = pygame.key.get_pressed()
