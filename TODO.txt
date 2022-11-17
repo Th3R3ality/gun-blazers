@@ -1,0 +1,17 @@
+DONE:
+
+
+IN PROGRESS:
+    
+
+
+
+
+
+
+TODO:
+    enemy class
+    player class
+
+
+remember comments retards
