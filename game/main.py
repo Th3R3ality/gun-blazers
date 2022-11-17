@@ -1,60 +1,67 @@
-import pygame, sys, time, math
+import pygame, sys, time, math, json
 
-from classes.c_player import Player
-
-
-pygame.init()
-clock = pygame.time.Clock()
-font = pygame.font.SysFont("Arial", 18)
-
-
-
-
+from classes import c_player
 
 def main():
-    #intiliaze all the important stuff
-    pygame.display.set_caption('Gun Blazers')
+    f = open("game/settings.json")
+    settings = json.load(f)
     
-    window = pygame.display.set_mode((800, 600))
+    #initialize settings
+
+    screen_size = pygame.math.Vector2(settings["screen_width"], settings["screen_height"])
+    
+    #initialize pygame stuff
+    pygame.init()
     clock = pygame.time.Clock()
-    background = pygame.Surface((800, 600))
-    background.fill(pygame.Color('#ffffff'))
+    window = pygame.display.set_mode(screen_size)
+    background = pygame.Surface(screen_size); background.fill(pygame.Color('#ffffff'))
+    font = pygame.font.SysFont("Arial", 18)
+    
+    pygame.display.set_caption('Gun Blazers')
     
     pygame.mouse.set_cursor(pygame.cursors.diamond)
     
     #instantiate local_player 
-    local_player = Player()
+    local_player = c_player.player()
+    local_player.pos = screen_size/2
+    entity_list = pygame.sprite.Group()
+    entity_list.add(local_player)
 
-
-
+    prev_time = time.time()
     #main game loop btw
     while True:
     
         #print(pygame.time.Clock.get_time())
-        deltaTime = clock.tick(10)/1000
+        dt = time.time() - prev_time
+        prev_time = time.time()
         
-        #UPADTE FUNCTION
-        fps_text = font.render(str(deltaTime), 1, pygame.Color("black"))
+        ###game logic###
+        #event loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
         
+        #update player
+        local_player.update(dt)
         
-        #render/draw stuff
+        ###drawing###
+        #clear screen
         window.blit(background, (0, 0))
         background.fill(pygame.Color('#ffffff'))
-        window.blit(fps_text, (10, 0))
-        local_player.update(window, time)
+        
+        #display delta time
+        dt_text = font.render(str(dt), 1, pygame.Color("black"))
+        window.blit(dt_text, (10, 0))
+        
+        #draw entities
+        entity_list.draw(window)
+        
+        #draw local_player stuff
+        local_player.draw(window)
         
         pygame.display.update()
-    
-
-
-
-
-
-
+        clock.tick()
 
 #opbject orietend programming 
 if __name__ == "__main__":
