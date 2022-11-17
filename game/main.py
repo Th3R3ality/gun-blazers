@@ -13,7 +13,6 @@ def main():
     background.fill(pygame.Color('#ffffff'))
     pygame.mouse.set_cursor(pygame.cursors.diamond)
     is_running = True
-#gay
 
     #initialize player 
     player = Player()
