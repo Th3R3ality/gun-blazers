@@ -4,9 +4,6 @@ class Player:
 
     def __init__(self):
         #sprites n shit
-        #self.surf = pygame.Surface((64, 64))
-        #self.surf.fill(("#000000"))
-        #self.rect = self.surf.get_rect(center = (400, 300))
 
         #mechanical shit
         self.health = 100
