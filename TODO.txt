@@ -11,7 +11,13 @@ IN PROGRESS:
 
 TODO:
     enemy class
+    
     player class
+    
+    weapon class
+        projectile class
+    
+    map class
 
 
 remember comments retards
