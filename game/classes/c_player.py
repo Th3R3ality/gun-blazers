@@ -10,7 +10,6 @@ class player(pygame.sprite.Sprite):
         self.image = pygame.image.load("player_sprite.png").convert_alpha()
         self.rect = self.image.get_rect()
         self.size = pygame.Vector2(self.rect.w, self.rect.h)
-
         #init game mechanic vars
         self.pos = pos
         self.health = 100
@@ -18,13 +17,22 @@ class player(pygame.sprite.Sprite):
         
         print("player class initialized")
 
-    def rotate(self):
-        mouse_x, mouse_y = pygame.mouse.get_pos()
-        player_rect = self.rect 
-        rel_x, rel_y = mouse_x - self.pos.x, mouse_y - self.pos.y
-        angle = math.degrees(math.atan2(-rel_y, rel_x)) - correction_angle   
-        self.image = pygame.transform.rotate(self.image, angle) ###DO NOT TURN ON### memory leak???
-        #self.image = self.image.get_rect().center
+    def rotate(self, surface):
+        player_pos = surface.get_rect().center
+        player_rect = self.image.get_rect(center = player_pos)
+        mx, my = pygame.mouse.get_pos()
+        dx, dy = mx - player_rect.centerx, my - player_rect.centery
+        angle = math.degrees(math.atan2(-dy, dx)) - correction_angle
+        rot_image = pygame.transform.rotate(self.image, angle)
+        rot_image_rect = rot_image.get_rect(center = player_rect.center)
+        surface.blit(rot_image, rot_image_rect)
+
+    def draw(self, surface):
+        pygame.draw.line(surface, (200, 0, 0), self.pos, pygame.mouse.get_pos(), 10)
+        self.rotate(surface)
+
+        surface.blit(self.image, self.rect)
+
 
     def update(self, dt):
         #movement
@@ -45,9 +53,9 @@ class player(pygame.sprite.Sprite):
         #set sprite/rect location
         self.rect = (round(self.pos.x - self.size.x/2), round(self.pos.y - self.size.y/2))
         
+
             
-    def draw(self, surface):
-        pygame.draw.line(surface, (200, 0, 0), self.pos, pygame.mouse.get_pos())
+        
         
         
 

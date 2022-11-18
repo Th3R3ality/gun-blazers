@@ -22,7 +22,7 @@ def main():
     #setup entity list and add a player
     entity_list = []
     entity_list.append(c_player.player(pygame.Vector2(screen_size/2)))
-
+    
     ###############
     #  main loop  #
     ###############
@@ -44,7 +44,7 @@ def main():
         #update entities
         for entity in entity_list:
             entity.update(dt)
-        
+
 
 
         #############
@@ -61,7 +61,7 @@ def main():
         
         #draw entities
         for entity in entity_list:
-            window.blit(entity.image, entity.rect)
+            entity.draw(window)
         
         #pygame update functions
         pygame.display.update()
