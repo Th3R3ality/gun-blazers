@@ -1,51 +1,56 @@
 import pygame, sys, time, math, json
-
 from classes import c_player
 
 def main():
+
+    #initialize settings
     f = open("game/settings.json")
     settings = json.load(f)
-    
-    #initialize settings
-
     screen_size = pygame.math.Vector2(settings["screen_width"], settings["screen_height"])
     
-    #initialize pygame stuff
+    #initialize pygame, font and window
     pygame.init()
     clock = pygame.time.Clock()
     window = pygame.display.set_mode(screen_size)
     background = pygame.Surface(screen_size); background.fill(pygame.Color('#ffffff'))
     font = pygame.font.SysFont("Arial", 18)
-    
     pygame.display.set_caption('Gun Blazers')
-    
-    pygame.mouse.set_cursor(pygame.cursors.diamond)
-    
-    #instantiate local_player 
-    local_player = c_player.player()
-    local_player.pos = screen_size/2
-    #entity_list = pygame.sprite.Group()
-    #entity_list.add(local_player)
 
+    #set cursor icon    
+    pygame.mouse.set_cursor(pygame.cursors.diamond)
+     
+    #setup entity list and add a player
+    entity_list = []
+    entity_list.append(c_player.player(pygame.Vector2(screen_size/2)))
+
+    ###############
+    #  main loop  #
+    ###############
     prev_time = time.time()
-    #main game loop btw
     while True:
-    
-        #print(pygame.time.Clock.get_time())
-        dt = time.time() - prev_time
+        dt = time.time() - prev_time #calculate deltatime
         prev_time = time.time()
-        
-        ###game logic###
+
+        ################
+        #  game logic  #
+        ################
+
         #event loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
         
-        #update player
-        local_player.update(dt)
+        #update entities
+        for entity in entity_list:
+            entity.update(dt)
         
-        ###drawing###
+
+
+        #############
+        #  drawing  #
+        #############
+
         #clear screen
         window.blit(background, (0, 0))
         background.fill(pygame.Color('#ffffff'))
@@ -55,12 +60,10 @@ def main():
         window.blit(dt_text, (10, 0))
         
         #draw entities
-        #entity_list.draw(window)
-        window.blit(local_player.image, local_player.rect)
-
-        #draw local_player stuff
-        local_player.draw(window)
+        for entity in entity_list:
+            window.blit(entity.image, entity.rect)
         
+        #pygame update functions
         pygame.display.update()
         clock.tick()
 

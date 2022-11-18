@@ -1,20 +1,18 @@
 import pygame, math
 
-#class player(pygame.sprite.Sprite):
 correction_angle = 90
+#class player(pygame.sprite.Sprite):
 class player(pygame.sprite.Sprite):
 
-    def __init__(self):
-        
+    def __init__(self, pos = pygame.Vector2(0,0)):
+
         #init sprite vars
         self.image = pygame.image.load("player_sprite.png").convert_alpha()
         self.rect = self.image.get_rect()
-        self.size = pygame.math.Vector2(self.rect.w/2, self.rect.h/2)
-        
-        
+        self.size = pygame.Vector2(self.rect.w, self.rect.h)
 
         #init game mechanic vars
-        self.pos = pygame.math.Vector2(self.rect.x,self.rect.y)
+        self.pos = pos
         self.health = 100
         self.movement_Speed = 250
         
@@ -26,11 +24,7 @@ class player(pygame.sprite.Sprite):
         rel_x, rel_y = mouse_x - self.pos.x, mouse_y - self.pos.y
         angle = math.degrees(math.atan2(-rel_y, rel_x)) - correction_angle   
         self.image = pygame.transform.rotate(self.image, angle) ###DO NOT TURN ON### memory leak???
-        self.rect = self.image.get_rect(center=player_rect)
-        
-    def rotateTest(self, degrees):
-        self.image = pygame.transform.rotate(self.image, degrees) 
-        
+        #self.image = self.image.get_rect().center
 
     def update(self, dt):
         #movement
@@ -49,14 +43,11 @@ class player(pygame.sprite.Sprite):
             self.rotate()
             
         #set sprite/rect location
-        self.rect = (round(self.pos.x - self.size.x), round(self.pos.y - self.size.y))
+        self.rect = (round(self.pos.x - self.size.x/2), round(self.pos.y - self.size.y/2))
         
             
     def draw(self, surface):
-        #debug
         pygame.draw.line(surface, (200, 0, 0), self.pos, pygame.mouse.get_pos())
-        self.rotate()
-
         
         
 
