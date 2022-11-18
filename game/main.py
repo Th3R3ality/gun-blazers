@@ -24,8 +24,8 @@ def main():
     #instantiate local_player 
     local_player = c_player.player()
     local_player.pos = screen_size/2
-    entity_list = pygame.sprite.Group()
-    entity_list.add(local_player)
+    #entity_list = pygame.sprite.Group()
+    #entity_list.add(local_player)
 
     prev_time = time.time()
     #main game loop btw
@@ -55,8 +55,9 @@ def main():
         window.blit(dt_text, (10, 0))
         
         #draw entities
-        entity_list.draw(window)
-        
+        #entity_list.draw(window)
+        window.blit(local_player.image, local_player.rect)
+
         #draw local_player stuff
         local_player.draw(window)
         
