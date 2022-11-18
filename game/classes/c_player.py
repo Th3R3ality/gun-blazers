@@ -27,8 +27,8 @@ class player():
         mx, my = pygame.mouse.get_pos()
         dx, dy = mx - self.pos.x, my - self.pos.y
         angle = math.degrees(math.atan2(-dy, dx)) - correction_angle
-        self.image = pygame.transform.rotate(self.image, angle)
-        self.rect = self.image.get_rect()
+        return pygame.transform.rotate(self.image, angle)
+        
 
     def draw(self, surface):
         pygame.draw.line(surface, (200, 0, 0), self.pos, pygame.mouse.get_pos(), 10)
