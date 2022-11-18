@@ -20,32 +20,37 @@ def main():
     pygame.display.set_caption('Gun Blazers')
     
     pygame.mouse.set_cursor(pygame.cursors.diamond)
-    
-    #instantiate local_player 
-    local_player = c_player.player()
-    local_player.pos = screen_size/2
-    #entity_list = pygame.sprite.Group()
-    #entity_list.add(local_player)
+     
+    entity_list = []
+
+    entity_list.append(c_player.player())
+
 
     prev_time = time.time()
-    #main game loop btw
-    while True:
-    
-        #print(pygame.time.Clock.get_time())
-        dt = time.time() - prev_time
+    while True: ###main loop###
+        dt = time.time() - prev_time #calculate deltatime
         prev_time = time.time()
-        
-        ###game logic###
+
+        ################
+        #  game logic  #
+        ################
+
         #event loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
         
-        #update player
-        local_player.update(dt)
+        #update entities
+        for entity in entity_list:
+            entity.update(dt)
         
-        ###drawing###
+
+
+        #############
+        #  drawing  #
+        #############
+
         #clear screen
         window.blit(background, (0, 0))
         background.fill(pygame.Color('#ffffff'))
@@ -55,11 +60,8 @@ def main():
         window.blit(dt_text, (10, 0))
         
         #draw entities
-        #entity_list.draw(window)
-        window.blit(local_player.image, local_player.rect)
-
-        #draw local_player stuff
-        local_player.draw(window)
+        for entity in entity_list:
+            window.blit(entity.image, entity.rect)
         
         pygame.display.update()
         clock.tick()
