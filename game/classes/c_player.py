@@ -27,16 +27,18 @@ class player():
         player_pos = surface.get_rect().center
         player_rect = self.image.get_rect(center = player_pos)
         mx, my = pygame.mouse.get_pos()
-        dx, dy = mx - player_rect.centerx, my - player_rect.centery
+        dx, dy = mx - self.pos.x, my - self.pos.y
         angle = math.degrees(math.atan2(-dy, dx)) - correction_angle
         rot_image = pygame.transform.rotate(self.image, angle)
         rot_image_rect = rot_image.get_rect(center = player_rect.center)
-        surface.blit(rot_image, rot_image_rect)
+        return rot_image
 
     def draw(self, surface):
         pygame.draw.line(surface, (200, 0, 0), self.pos, pygame.mouse.get_pos(), 10)
-        self.rotate(surface)
+        self.image = self.rotate(surface)
 
+
+        self.rect = (round(self.pos.x - self.size.x/2), round(self.pos.y - self.size.y/2))
         surface.blit(self.image, self.rect)
 
 
@@ -55,9 +57,6 @@ class player():
             self.rotate()
         if keys[pygame.K_RIGHT]:
             self.rotate()
-            
-        #set sprite/rect location
-        self.rect = (round(self.pos.x - self.size.x/2), round(self.pos.y - self.size.y/2))
         
 
             
