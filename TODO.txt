@@ -6,7 +6,8 @@ IN PROGRESS:
     player class
         player movement
         player drawing
-
+        aim to cursor
+        shoot towards cursor
 
 
 
@@ -17,8 +18,7 @@ TODO:
         shooting
         upgardes
         health
-        aim to cursor
-        shoot towards cursor
+
     UI:
         crosshair
         kill counter

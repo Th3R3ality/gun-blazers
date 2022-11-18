@@ -23,7 +23,10 @@ class player(pygame.sprite.Sprite):
         mouse_x, mouse_y = pygame.mouse.get_pos()
         rel_x, rel_y = mouse_x - self.pos.x, mouse_y - self.pos.y
         angle = (180 / math.pi) * -math.atan2(rel_y, rel_x)
-        #self.image = pygame.transform.rotate(self.image, int(angle)) ###DO NOT TURN ON### memory leak???
+        self.image = pygame.transform.rotate(self.image, angle) ###DO NOT TURN ON### memory leak???
+        self.image = self.image.get_rect().center
+        
+        
         
 
     def update(self, dt):
@@ -40,12 +43,12 @@ class player(pygame.sprite.Sprite):
             
         #set sprite/rect location
         self.rect = (round(self.pos.x - self.size.x), round(self.pos.y - self.size.y))
-        #self.rotate()
+        
             
     def draw(self, surface):
         #debug
         pygame.draw.line(surface, (200, 0, 0), self.pos, pygame.mouse.get_pos())
-
+        self.rotate()
 
 
         #draw the player
