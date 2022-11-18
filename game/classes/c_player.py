@@ -2,7 +2,7 @@ import pygame, math
 
 correction_angle = 90
 #class player(pygame.sprite.Sprite):
-class player(pygame.sprite.Sprite):
+class player():
 
     def __init__(self, pos = pygame.Vector2(0,0)):
 
