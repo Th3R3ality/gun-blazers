@@ -1,9 +1,11 @@
 DONE:
-
+    setup deltatime for time non-fps based behaviour
 
 IN PROGRESS:
     
-
+    player class
+        player movement
+        player drawing
 
 
 
@@ -12,7 +14,6 @@ IN PROGRESS:
 TODO:
     mechanics:
         game loop prolly
-        movement
         shooting
         upgardes
         health
@@ -30,7 +31,7 @@ TODO:
     enemy class superclass
         enemy type subclasses
     
-    player class
+    
     
     weapon class
         projectile class
