@@ -25,7 +25,7 @@ class player():
 
     def rotate(self, surface):
         mx, my = pygame.mouse.get_pos()
-        dx, dy = mx - player_rect.centerx, my - player_rect.centery
+        dx, dy = mx - self.pos.x, my - self.pos.y
         angle = math.degrees(math.atan2(-dy, dx)) - correction_angle
         self.image = pygame.transform.rotate(self.image, angle)
         self.rect = self.image.get_rect()
