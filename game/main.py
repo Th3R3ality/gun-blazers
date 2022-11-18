@@ -16,7 +16,7 @@ def main():
     font = pygame.font.SysFont("Arial", 18)
     pygame.display.set_caption('Gun Blazers')
 
-    #set cursor icon    
+    #set cursor icon
     pygame.mouse.set_cursor(pygame.cursors.diamond)
      
     #setup entity list and add a player
@@ -30,7 +30,7 @@ def main():
     ###############
     prev_time = time.time()
     while True:
-        dt = time.time() - prev_time #calculate deltatime
+        dt = time.time() - prev_time #calculate deltatime (precise time since last frame)
         prev_time = time.time()
 
         ################
@@ -46,8 +46,6 @@ def main():
         #update entities
         for entity in entity_list:
             entity.update(dt)
-
-
 
         #############
         #  drawing  #
@@ -68,7 +66,6 @@ def main():
         #pygame update functions
         pygame.display.update()
         clock.tick()
-
 #opbject orietend programming 
 if __name__ == "__main__":
     main()
