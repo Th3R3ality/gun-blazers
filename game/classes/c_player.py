@@ -3,14 +3,12 @@ import pygame, math
 #class player(pygame.sprite.Sprite):
 class player():
 
-    def __init__(self, pos = pygame.math.Vector2(0,0)):
+    def __init__(self, pos = pygame.Vector2(0,0)):
         
         #init sprite vars
         self.image = pygame.image.load("player_sprite.png").convert_alpha()
         self.rect = self.image.get_rect()
-        self.size = pygame.math.Vector2(self.rect.w, self.rect.h)
-        
-        
+        self.size = pygame.Vector2(self.rect.w, self.rect.h)
 
         #init game mechanic vars
         self.pos = pos
@@ -25,9 +23,6 @@ class player():
         angle = (180 / math.pi) * -math.atan2(rel_y, rel_x)
         self.image = pygame.transform.rotate(self.image, angle) ###DO NOT TURN ON### memory leak???
         #self.image = self.image.get_rect().center
-        
-        
-        
 
     def update(self, dt):
         #movement
