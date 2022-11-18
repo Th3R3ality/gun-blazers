@@ -1,18 +1,15 @@
 import pygame, math
 class base_enemy():
 
-    def __init__(self, pos = pygame.Vector2(0,0), sprite = "", scale = (75,75)) -> None:
+    def __init__(self, pos = pygame.Vector2(0,0), sprite = "", scale = (75,75)):
         #init sprite vars
-        self.image = {}
+        self.image_orig = {}
         if sprite == "":
-            self.image = pygame.Surface([25,25])
-            self.image.fill(pygame.Color("red"))
+            self.image_orig = pygame.Surface(scale)
+            self.image_orig.fill(pygame.Color("red"))
         else:
-            self.image = pygame.image.load(sprite).convert_alpha()
-        
-        self.image = pygame.transform.scale(self.image, scale)
-        self.rect = self.image.get_rect()
-        self.size = pygame.Vector2(self.rect.w, self.rect.h)
+            self.image_orig = pygame.transform.scale(pygame.image.load(sprite).convert_alpha(), scale)
+        self.image = self.image_orig
 
         #init game mechanic vars
         self.pos = pos
@@ -21,8 +18,13 @@ class base_enemy():
         
         print("base_enemy class initialized")
 
+    def rotate(self, angle):
+        self.image = pygame.transform.rotate(self.image_orig, angle)
+
     def update(self):
         pass
 
     def draw(self, surface):
-        pass
+        self.rect = self.image_orig.get_rect()
+        self.rect = pygame.Vector2(self.pos.x - self.rect.w/2, self.pos.y - self.rect.h/2)
+        surface.blit(self.image_orig, self.rect)
