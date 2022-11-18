@@ -1,6 +1,7 @@
 import pygame, math
 
 #class player(pygame.sprite.Sprite):
+correction_angle = 90
 class player(pygame.sprite.Sprite):
 
     def __init__(self):
@@ -21,12 +22,14 @@ class player(pygame.sprite.Sprite):
 
     def rotate(self):
         mouse_x, mouse_y = pygame.mouse.get_pos()
+        player_rect = self.rect 
         rel_x, rel_y = mouse_x - self.pos.x, mouse_y - self.pos.y
-        angle = (180 / math.pi) * -math.atan2(rel_y, rel_x)
+        angle = math.degrees(math.atan2(-rel_y, rel_x)) - correction_angle   
         self.image = pygame.transform.rotate(self.image, angle) ###DO NOT TURN ON### memory leak???
-        self.image = self.image.get_rect().center
+        self.rect = self.image.get_rect(center=player_rect)
         
-        
+    def rotateTest(self, degrees):
+        self.image = pygame.transform.rotate(self.image, degrees) 
         
 
     def update(self, dt):
@@ -40,6 +43,10 @@ class player(pygame.sprite.Sprite):
             self.pos.x -= self.movement_Speed * dt
         if keys[pygame.K_d]:
             self.pos.x += self.movement_Speed * dt
+        if keys[pygame.K_LEFT]:
+            self.rotate()
+        if keys[pygame.K_RIGHT]:
+            self.rotate()
             
         #set sprite/rect location
         self.rect = (round(self.pos.x - self.size.x), round(self.pos.y - self.size.y))
@@ -51,8 +58,6 @@ class player(pygame.sprite.Sprite):
         self.rotate()
 
         
-        #draw the player
-        #pygame.draw.rect(surface, (244, 0, 0), (self.pos.x, self.pos.y, 64, 64))
         
 
 
