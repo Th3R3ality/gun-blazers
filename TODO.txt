@@ -9,7 +9,7 @@ IN PROGRESS:
         aim to cursor
         shoot towards cursor
 
-
+    enemy class superclass
 
 
 TODO:
@@ -28,7 +28,7 @@ TODO:
         highscore?
         
 
-    enemy class superclass
+    
         enemy type subclasses
     
     

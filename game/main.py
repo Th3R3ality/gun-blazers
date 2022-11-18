@@ -21,7 +21,9 @@ def main():
      
     #setup entity list and add a player
     entity_list = []
-    entity_list.append(c_player.player(pygame.Vector2(screen_size/2)))
+    entity_list.append(c_player.player(
+            pygame.Vector2(screen_size/2),
+            "player_sprite.png"))
 
     ###############
     #  main loop  #
