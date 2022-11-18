@@ -1,16 +1,16 @@
 import pygame, math
 
+#class player(pygame.sprite.Sprite):
 class player(pygame.sprite.Sprite):
 
     def __init__(self):
         
-        #init sprite
-        pygame.sprite.Sprite.__init__(self)
+        #init sprite vars
         self.image = pygame.image.load("player_sprite.png").convert_alpha()
-        
-        #init rect and rect size vars
         self.rect = self.image.get_rect()
         self.size = pygame.math.Vector2(self.rect.w/2, self.rect.h/2)
+        
+        
 
         #init game mechanic vars
         self.pos = pygame.math.Vector2(self.rect.x,self.rect.y)
@@ -47,7 +47,7 @@ class player(pygame.sprite.Sprite):
         pygame.draw.line(surface, (200, 0, 0), self.pos, pygame.mouse.get_pos())
 
 
-
+        
         #draw the player
         #pygame.draw.rect(surface, (244, 0, 0), (self.pos.x, self.pos.y, 64, 64))
         
