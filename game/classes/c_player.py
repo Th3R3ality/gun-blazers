@@ -24,22 +24,18 @@ class player():
         print("player class initialized")
 
     def rotate(self, surface):
-        player_pos = surface.get_rect().center
-        player_rect = self.image.get_rect(center = player_pos)
         mx, my = pygame.mouse.get_pos()
-        dx, dy = mx - self.pos.x, my - self.pos.y
+        dx, dy = mx - player_rect.centerx, my - player_rect.centery
         angle = math.degrees(math.atan2(-dy, dx)) - correction_angle
-        rot_image = pygame.transform.rotate(self.image, angle)
-        rot_image_rect = rot_image.get_rect(center = player_rect.center)
-        return rot_image
+        self.image = pygame.transform.rotate(self.image, angle)
+        self.rect = self.image.get_rect()
 
     def draw(self, surface):
         pygame.draw.line(surface, (200, 0, 0), self.pos, pygame.mouse.get_pos(), 10)
         self.image = self.rotate(surface)
-
-
+        
         self.rect = (round(self.pos.x - self.size.x/2), round(self.pos.y - self.size.y/2))
-        surface.blit(self.image, self.rect)
+        surface.blit(self.image, self.pos)
 
 
     def update(self, dt):
