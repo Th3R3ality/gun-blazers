@@ -2,12 +2,18 @@ import pygame, math
 
 correction_angle = 90
 #class player(pygame.sprite.Sprite):
-class player(pygame.sprite.Sprite):
+class player():
 
-    def __init__(self, pos = pygame.Vector2(0,0)):
-
+    def __init__(self, pos = pygame.Vector2(0,0), sprite = "", scale = (75,75)):
         #init sprite vars
-        self.image = pygame.image.load("player_sprite.png").convert_alpha()
+        self.image = {}
+        if sprite == "":
+            self.image = pygame.Surface([25,25])
+            self.image.fill(pygame.Color("red"))
+        else:
+            self.image = pygame.image.load(sprite).convert_alpha()
+        
+        self.image = pygame.transform.scale(self.image, scale)
         self.rect = self.image.get_rect()
         self.size = pygame.Vector2(self.rect.w, self.rect.h)
         #init game mechanic vars
