@@ -10,7 +10,7 @@ class player():
         self.image = {}
         if sprite == "":
             self.image_orig = pygame.Surface([25,25])
-            self.image_orig.fill(pygame.Color("red"))
+            self.image_orig.fill(pygame.Color("green"))
         else:
             self.image_orig = pygame.image.load(sprite).convert_alpha()
         
@@ -21,7 +21,8 @@ class player():
         #init game mechanic vars
         self.pos = pos
         self.health = 100
-        self.movement_speed = 250
+        self.movement_speed_orig = 250
+        self.movement_speed = self.movement_speed_orig
         
         print("player class initialized")
 
@@ -42,14 +43,16 @@ class player():
     def update(self, dt):
         #movement
         keys = pygame.key.get_pressed()
+        if keys[pygame.K_LSHIFT]:
+            self.movement_speed = self.movement_speed_orig*2
         if keys[pygame.K_w]:
-            self.pos.y -= self.movement_speed * dt
+            self.pos.y -= self.movement_speed_orig * dt
         if keys[pygame.K_s]:
-            self.pos.y += self.movement_speed * dt
+            self.pos.y += self.movement_speed_orig * dt
         if keys[pygame.K_a]:
-            self.pos.x -= self.movement_speed * dt
+            self.pos.x -= self.movement_speed_orig * dt
         if keys[pygame.K_d]:
-            self.pos.x += self.movement_speed * dt
+            self.pos.x += self.movement_speed_orig * dt
         
 
             

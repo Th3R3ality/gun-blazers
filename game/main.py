@@ -1,5 +1,6 @@
 import pygame, sys, time, math, json
-from classes import c_player
+from classes import c_base_enemy, c_player
+from realutil import debug_text
 
 def main():
 
@@ -13,17 +14,23 @@ def main():
     clock = pygame.time.Clock()
     window = pygame.display.set_mode(screen_size)
     background = pygame.Surface(screen_size); background.fill(pygame.Color('#ffffff'))
-    font = pygame.font.SysFont("Arial", 18)
     pygame.display.set_caption('Gun Blazers')
+
+    debug = debug_text()
+    debug.add_perma("Hello", pygame.Color("black"))
+    debug.add_perma("pygame!", pygame.Color("red"))
 
     #set cursor icon
     pygame.mouse.set_cursor(pygame.cursors.diamond)
      
     #setup entity list and add a player
-    entity_list = []
-    entity_list.append(c_player.player(
+    local_player = c_player.player(
             pygame.Vector2(screen_size/2),
-            "player_sprite.png"))
+            "player_sprite.png")
+    
+    entity_list = []
+    entity_list.append(c_base_enemy.base_enemy(
+            pygame.Vector2(screen_size/4)))
     
     ###############
     #  main loop  #
@@ -44,8 +51,9 @@ def main():
                 sys.exit()
         
         #update entities
+        local_player.update(dt)
         for entity in entity_list:
-            entity.update(dt)
+            entity.update(dt, local_player)
 
         #############
         #  drawing  #
@@ -55,14 +63,17 @@ def main():
         window.blit(background, (0, 0))
         background.fill(pygame.Color('#ffffff'))
         
-        #display delta time
-        dt_text = font.render(str(dt), 1, pygame.Color("black"))
-        window.blit(dt_text, (10, 0))
+        debug.add(dt, pygame.Color("black"))
+        debug.add("player", pygame.Color("blue"), local_player.pos)
         
+
         #draw entities
+        local_player.draw(window)
         for entity in entity_list:
             entity.draw(window)
         
+        #display debug text
+        debug.draw_flush(window)
         #pygame update functions
         pygame.display.update()
         clock.tick()
