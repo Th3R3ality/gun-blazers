@@ -17,7 +17,7 @@ class base_enemy():
         #init game mechanic vars
         self.pos = pos
         self.health = 100
-        self.movement_Speed = 100
+        self.movement_speed = 100
         
         print("base_enemy class initialized")
 
@@ -25,4 +25,7 @@ class base_enemy():
         pass
 
     def draw(self, surface):
-        pass
+        self.rect = self.image.get_rect()
+        self.rect = pygame.Vector2(self.pos.x - self.rect.w/2, self.pos.y - self.rect.h/2)
+        surface.blit(self.image, self.rect)
+        

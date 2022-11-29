@@ -21,7 +21,7 @@ class player():
         #init game mechanic vars
         self.pos = pos
         self.health = 100
-        self.movement_Speed = 250
+        self.movement_speed = 250
         
         print("player class initialized")
 
@@ -43,13 +43,13 @@ class player():
         #movement
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
-            self.pos.y -= self.movement_Speed * dt
+            self.pos.y -= self.movement_speed * dt
         if keys[pygame.K_s]:
-            self.pos.y += self.movement_Speed * dt
+            self.pos.y += self.movement_speed * dt
         if keys[pygame.K_a]:
-            self.pos.x -= self.movement_Speed * dt
+            self.pos.x -= self.movement_speed * dt
         if keys[pygame.K_d]:
-            self.pos.x += self.movement_Speed * dt
+            self.pos.x += self.movement_speed * dt
         
 
             
