@@ -1,6 +1,6 @@
 DONE:
     setup deltatime for time non-fps based behaviour
-
+    crosshair
 IN PROGRESS:
     
     player class
@@ -20,7 +20,7 @@ TODO:
         health
 
     UI:
-        crosshair
+
         kill counter
         health bar
         money

@@ -1,9 +1,9 @@
-import pygame, sys, time, math, json
-from classes import c_base_enemy, c_player
-from realutil import debug_text
+import pygame, sys, time, math, json, os
+from classes import c_player
+from classes import bullet
 
 def main():
-
+    print("Working dir:", os.getcwd())
     #initialize settings
     f = open("game/settings.json")
     settings = json.load(f)
@@ -32,8 +32,10 @@ def main():
     entity_list.append(c_base_enemy.base_enemy(
             pygame.Vector2(screen_size/4)))
     
+    
+    
     ###############
-    #  main loop  #
+    #  main loop  #d
     ###############
     prev_time = time.time()
     while True:
@@ -43,7 +45,7 @@ def main():
         ################
         #  game logic  #
         ################
-
+        
         #event loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -53,7 +55,8 @@ def main():
         #update entities
         local_player.update(dt)
         for entity in entity_list:
-            entity.update(dt, local_player)
+            entity.update(dt)
+
 
         #############
         #  drawing  #
