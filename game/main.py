@@ -1,6 +1,6 @@
 import pygame, sys, time, math, json, os
-from classes import c_player
-from classes import bullet
+from classes import c_base_enemy, c_player
+from realutil import debug_text
 
 def main():
     print("Working dir:", os.getcwd())

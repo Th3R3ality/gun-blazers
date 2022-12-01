@@ -23,7 +23,7 @@ class Bullet():
     def draw(self):
         #moving the bullet(commented out bcs of debugging)
         #self.x += self.vel 
-        pass
+        self.rect.center = self.pos
 
 
     def debug(self):

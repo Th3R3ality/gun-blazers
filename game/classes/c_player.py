@@ -49,7 +49,7 @@ class player():
 
     def shoot(self):
         #print("hwerherh")
-        bullets.append(bullet.Bullet(self.pos.x, self.pos.y, 2, (255, 0, 0), self.direction))
+        bullets.append(bullet.Bullet(255, 367, 2, (255, 0, 0), self.direction))
         
         
 
