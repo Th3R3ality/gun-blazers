@@ -30,32 +30,49 @@ class player():
 
     def rotate(self, angle):
         self.image = pygame.transform.rotate(self.image_orig, angle)
+
+    def shoot(self):
+        #print("hwerherh")
+        bullets.append(bullet.Bullet(self.pos.x, self.pos.y))
         
 
     def draw(self, surface):
         angle_to_cursor = atan2d(pygame.mouse.get_pos(), self.pos)
-        self.direction = angle_to_cursor
         pygame.draw.line(surface, (200, 0, 0), self.pos, pygame.mouse.get_pos(), 10)
         self.rotate(angle_to_cursor)
-        
+        #set player direction and make sure its 360 degrees not 180 to -180
+        if angle_to_cursor < 0:
+            self.direction = 360 + angle_to_cursor
+        elif angle_to_cursor >= 0:
+            self.direction = angle_to_cursor
+
+
         self.rect = self.image.get_rect()
         self.rect = pygame.Vector2(self.pos.x - self.rect.w/2, self.pos.y - self.rect.h/2)
         surface.blit(self.image, self.rect)
 
 
         #draw bullets
+        #for bullet in bullets:
+            #surface.blit(surface, bullet.image.get_rect)
+            
+        #bullet removal and movement
         for bullet in bullets:
-            surface.blit(bullet.image, bullet.rect)
+            if bullet.x < 800 and bullet.x > 0:
+                bullet.draw(surface)
+                #bullet.debug()
+            else:
+                bullets.pop(bullets.index(bullet))#remove bullet if its not visible
 
-    def shoot(self):
-        #print("hwerherh")
-        bullets.append(bullet.Bullet(255, 367, 2, (255, 0, 0), self.direction))
-        
+            if bullet.x > 800 or bullet.y > 600:
+                bullets.remove(bullet)
+
+
         
 
     def update(self, dt):
         #debug
-        #print("PlayerDirection: " + str(self.direction))
+        print("PlayerDirection: " + str(self.direction))
         #print("x: " + str(self.pos.x))
         #print("y: " + str(self.pos.y))
         #movement
@@ -68,19 +85,12 @@ class player():
         if keys[pygame.K_a]:
             self.pos.x -= self.movement_speed_orig * dt
         if keys[pygame.K_d]:
-            self.pos.x += self.movement_Speed * dt
+            self.pos.x += self.movement_speed_orig * dt
         if keys[pygame.K_SPACE]:
             self.shoot()
     
-        #bullet removal and movement
-        for bullet in bullets:
-            if bullet.x < 800 and bullet.x > 0:
-                bullet.draw()
-                bullet.debug()
-            else:
-                bullets.pop(bullets.index(bullet))#remove bullet if its not visible
 
-            
+
         
         
         

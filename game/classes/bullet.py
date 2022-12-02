@@ -1,32 +1,27 @@
 import pygame
 
-class Bullet():
-    def __init__(self, x, y, radius, color, facing, sprite = "", scale = (5, 5)):
-        self.image = {}
+class Bullet:
+    def __init__(self, x, y):
+        sprite = ""
+        scale = (75,75)
         if sprite == "":
             self.image_orig = pygame.Surface([25,25])
-            self.image_orig.fill(pygame.Color("red"))
+            self.image_orig.fill(pygame.Color("green"))
         else:
             self.image_orig = pygame.image.load(sprite).convert_alpha()
-
+        
         self.image_orig = pygame.transform.scale(self.image_orig, scale)
-
-        self.image = self.image_orig
+        self.rect = self.image_orig.get_rect()
+        self.radius = 10
+        self.speed = 10
+        
         self.x = x
         self.y = y
-        self.radius = radius
-        self.color = color
-        self.facing = facing
-        self.vel = 1 * facing
-        self.rect = self.image.get_rect()
 
-    def draw(self):
-        #moving the bullet(commented out bcs of debugging)
-        #self.x += self.vel 
-        self.rect.center = self.pos
+    def update(self):
+        self.y -= self.speed
 
+    def draw(self, surface):
+        pygame.draw.circle(surface, (255, 0, 0), (self.x, self.y), self.radius)
+        surface.blit(self.image_orig, self.rect )
 
-    def debug(self):
-        print("x: " + str(self.x))
-        print("y: " + str(self.y))
-        print("velocity:" + str(self.vel))

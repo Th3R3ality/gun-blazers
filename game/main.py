@@ -29,8 +29,8 @@ def main():
             "player_sprite.png")
     
     entity_list = []
-    entity_list.append(c_base_enemy.base_enemy(
-            pygame.Vector2(screen_size/4)))
+    #entity_list.append(c_base_enemy.base_enemy(
+            #pygame.Vector2(screen_size/4)))
     
     
     
@@ -55,11 +55,11 @@ def main():
         #update entities
         local_player.update(dt)
         for entity in entity_list:
-            entity.update(dt)
+            entity.update(dt, local_player)
 
 
         #############
-        #  drawing  #
+        #  drawing  # 
         #############
 
         #clear screen
