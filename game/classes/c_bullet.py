@@ -1,6 +1,6 @@
 import pygame
 
-class Bullet:
+class bullet:
     def __init__(self, x, y):
         sprite = ""
         scale = (75,75)
@@ -23,5 +23,6 @@ class Bullet:
 
     def draw(self, surface):
         pygame.draw.circle(surface, (255, 0, 0), (self.x, self.y), self.radius)
-        surface.blit(self.image_orig, self.rect )
+        #surface.blit(self.image_orig, self.rect )
+        #bruh ^^ green square
 

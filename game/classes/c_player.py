@@ -1,6 +1,6 @@
 import pygame, math
 from realutil import *
-from classes import bullet
+from classes import c_bullet
 
 bullets = []
 correction_angle = 90
@@ -33,7 +33,7 @@ class player():
 
     def shoot(self):
         #print("hwerherh")
-        bullets.append(bullet.Bullet(self.pos.x, self.pos.y))
+        bullets.append(c_bullet.bullet(self.pos.x, self.pos.y))
         
 
     def draw(self, surface):
@@ -75,9 +75,14 @@ class player():
         print("PlayerDirection: " + str(self.direction))
         #print("x: " + str(self.pos.x))
         #print("y: " + str(self.pos.y))
-        #movement
-        keys = pygame.key.get_pressed()
+        
+        for bullet in bullets:
+            bullet.update()
+            if bullet.x > 800 or bullet.y > 600:
+                bullets.remove(bullet)
 
+        #controls/input
+        keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
             self.pos.y -= self.movement_speed_orig * dt
         if keys[pygame.K_s]:
