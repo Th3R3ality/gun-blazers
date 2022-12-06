@@ -4,6 +4,7 @@ from classes import c_bullet
 
 bullets = []
 correction_angle = 90
+fire_rate = 1
 #class player(pygame.sprite.Sprite):
 class player():
     
@@ -25,20 +26,20 @@ class player():
         self.health = 100
         self.movement_speed_orig = 250
         self.movement_speed = self.movement_speed_orig
+        self.time_since_last_shot = 0
         
         print("player class initialized")
 
     def rotate(self, angle):
         self.image = pygame.transform.rotate(self.image_orig, angle)
 
-    def shoot(self):
-        #print("hwerherh")
-        bullets.append(c_bullet.bullet(self.pos.x, self.pos.y))
-        
+    def shoot(self, dt):
+        bullets.append(c_bullet.bullet(self.pos.x, self.pos.y, self.direction))
+
 
     def draw(self, surface):
         angle_to_cursor = atan2d(pygame.mouse.get_pos(), self.pos)
-        pygame.draw.line(surface, (200, 0, 0), self.pos, pygame.mouse.get_pos(), 10)
+        #pygame.draw.line(surface, (200, 0, 0), self.pos, pygame.mouse.get_pos(), 10)
         self.rotate(angle_to_cursor)
         #set player direction and make sure its 360 degrees not 180 to -180
         if angle_to_cursor < 0:
@@ -67,32 +68,20 @@ class player():
             if bullet.x > 800 or bullet.y > 600:
                 bullets.remove(bullet)
 
-
-        
-
     def update(self, dt):
         #debug
-        print("PlayerDirection: " + str(self.direction))
+        #print("PlayerDirection: " + str(self.direction))
         #print("x: " + str(self.pos.x))
         #print("y: " + str(self.pos.y))
-        
+
         for bullet in bullets:
             bullet.update()
             if bullet.x > 800 or bullet.y > 600:
                 bullets.remove(bullet)
 
-        #controls/input
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_w]:
-            self.pos.y -= self.movement_speed_orig * dt
-        if keys[pygame.K_s]:
-            self.pos.y += self.movement_speed_orig * dt
-        if keys[pygame.K_a]:
-            self.pos.x -= self.movement_speed_orig * dt
-        if keys[pygame.K_d]:
-            self.pos.x += self.movement_speed_orig * dt
-        if keys[pygame.K_SPACE]:
-            self.shoot()
+        self.time_since_last_shot += dt
+
+        
     
 
 

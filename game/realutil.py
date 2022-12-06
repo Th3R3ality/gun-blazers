@@ -31,3 +31,4 @@ class debug_text():
             count += 1
         
         self.strings = []
+        

@@ -1,5 +1,5 @@
 import pygame, sys, time, math, json, os
-from classes import c_base_enemy, c_player
+from classes import c_base_enemy, c_player, c_bullet
 from realutil import debug_text
 
 def main():
@@ -24,13 +24,14 @@ def main():
     pygame.mouse.set_cursor(pygame.cursors.diamond)
      
     #setup entity list and add a player
+    bullet_list = []
     local_player = c_player.player(
             pygame.Vector2(screen_size/2),
             "player_sprite.png")
     
     entity_list = []
-    #entity_list.append(c_base_enemy.base_enemy(
-            #pygame.Vector2(screen_size/4)))
+    entity_list.append(c_base_enemy.base_enemy(
+            pygame.Vector2(screen_size/4)))
     
     
     
@@ -51,11 +52,31 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
+        #controls/input
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_w]:
+            local_player.pos.y -= local_player.movement_speed_orig * dt
+        if keys[pygame.K_s]:
+            local_player.pos.y += local_player.movement_speed_orig * dt
+        if keys[pygame.K_a]:
+            local_player.pos.x -= local_player.movement_speed_orig * dt
+        if keys[pygame.K_d]:
+            local_player.pos.x += local_player.movement_speed_orig * dt
+        if keys[pygame.K_SPACE]:
+            if local_player.time_since_last_shot > 0.2:
+                local_player.time_since_last_shot = 0
+                bullet_list.append(c_bullet.bullet(local_player.pos.x, local_player.pos.y, local_player.direction))
+
         
         #update entities
         local_player.update(dt)
         for entity in entity_list:
             entity.update(dt, local_player)
+            for bullets in bullet_list:
+                if bullets.get_coll():
+                    bullets.pop()
+                
 
 
         #############
@@ -80,6 +101,9 @@ def main():
         #pygame update functions
         pygame.display.update()
         clock.tick()
+
+
+
 #opbject orietend programming 
 if __name__ == "__main__":
     main()
