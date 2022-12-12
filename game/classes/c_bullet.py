@@ -18,7 +18,7 @@ class bullet:
         self.enemy_pos = pygame.Vector2(0, 0)
         self.dist_bullet_enemy = 0
         self.radius = 3
-        self.speed = 2
+        self.speed = 1
         self.x = x
         self.y = y
         self.pos = pygame.Vector2(self.x, self.y)

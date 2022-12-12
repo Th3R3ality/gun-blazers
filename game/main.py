@@ -1,6 +1,6 @@
 import pygame, sys, time, math, json, os
 from classes import c_base_enemy, c_player, c_bullet
-from realutil import debug_text
+from realutil import debug_text, point_in_circle
 
 def main():
     print("Working dir:", os.getcwd())
@@ -36,7 +36,7 @@ def main():
     
     
     ###############
-    #  main loop  #d
+    #  main loop  #
     ###############
     prev_time = time.time()
     while True:
@@ -71,11 +71,18 @@ def main():
         
         #update entities
         local_player.update(dt)
-        for entity in entity_list:
+        for eidx, entity in enumerate(entity_list):
             entity.update(dt, local_player)
-            for bullets in bullet_list:
-                if bullets.get_coll():
-                    bullets.pop()
+        
+        for bidx, bullet in enumerate(bullet_list):
+            bullet.update()
+            debug.add("bullet pos", pygame.Color("black"), (bullet.x, bullet.y))
+            for eidx, entity in enumerate(entity_list):
+                if point_in_circle((bullet.x, bullet.y), entity.pos, entity.radius):
+                    bullet_list.pop(bidx)
+                    entity_list.pop(eidx)
+                    debug.add("bullet colliding", pygame.Color("red"))
+                    continue
                 
 
 
@@ -95,7 +102,9 @@ def main():
         local_player.draw(window)
         for entity in entity_list:
             entity.draw(window)
-        
+        for bullet in bullet_list:
+            bullet.draw(window)
+
         #display debug text
         debug.draw_flush(window)
         #pygame update functions

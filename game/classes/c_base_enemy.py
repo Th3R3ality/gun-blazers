@@ -14,6 +14,7 @@ class base_enemy():
         self.image = pygame.transform.scale(self.image, init_scale)
         self.rect = self.image.get_rect()
         self.size = pygame.Vector2(self.rect.w, self.rect.h)
+        self.radius = (self.size[1]/2)
 
         #init game mechanic vars
         self.pos = init_pos

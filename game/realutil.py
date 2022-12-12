@@ -3,6 +3,14 @@ import math, pygame
 def atan2d(a, b) -> float:
     return math.degrees(math.atan2(b[0] - a[0], b[1] - a[1]))
 
+def dist2d(a, b):
+    return math.sqrt(math.pow(b[0] - a[0], 2) + math.pow(b[1] - a[1], 2))
+
+def point_in_circle(a, b, br):
+        if dist2d(a, b) < br:
+            return True
+        return False
+
 class debug_text():
     def __init__(self) -> None:
         self.strings = []
@@ -27,8 +35,8 @@ class debug_text():
             pos = (10, 18 * count)
             if s[1] != (0,0):
                 pos = s[1]
+                count -= 1
             surface.blit(s[0], pos)
             count += 1
         
         self.strings = []
-        
