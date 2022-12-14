@@ -27,6 +27,7 @@ class player():
         self.movement_speed_orig = 250
         self.movement_speed = self.movement_speed_orig
         self.time_since_last_shot = 0
+        self.spawnTime = 0
         
         print("player class initialized")
 
@@ -80,6 +81,7 @@ class player():
                 bullets.remove(bullet)
 
         self.time_since_last_shot += dt
+        self.spawnTime += dt
 
         
     

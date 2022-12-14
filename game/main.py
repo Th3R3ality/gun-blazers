@@ -1,13 +1,20 @@
-import pygame, sys, time, math, json, os
+import pygame, sys, time, math, json, os, random
 from classes import c_base_enemy, c_player, c_bullet
 from realutil import debug_text, point_in_circle
 
 def main():
+
+    killAmmount = 0
     print("Working dir:", os.getcwd())
     #initialize settings
     f = open("game/settings.json")
     settings = json.load(f)
     screen_size = pygame.math.Vector2(settings["screen_width"], settings["screen_height"])
+
+    #music
+    pygame.mixer.init()
+    pygame.mixer.music.load('game/hot_garbage.wav')
+    pygame.mixer.music.play()
     
     #initialize pygame, font and window
     pygame.init()
@@ -18,7 +25,6 @@ def main():
 
     debug = debug_text()
     debug.add_perma("Hello", pygame.Color("black"))
-    debug.add_perma("pygame!", pygame.Color("red"))
 
     #set cursor icon
     pygame.mouse.set_cursor(pygame.cursors.diamond)
@@ -30,8 +36,7 @@ def main():
             "player_sprite.png")
     
     entity_list = []
-    entity_list.append(c_base_enemy.base_enemy(
-            pygame.Vector2(screen_size/4)))
+
     
     
     
@@ -39,6 +44,7 @@ def main():
     #  main loop  #
     ###############
     prev_time = time.time()
+
     while True:
         dt = time.time() - prev_time #calculate deltatime (precise time since last frame)
         prev_time = time.time()
@@ -46,7 +52,17 @@ def main():
         ################
         #  game logic  #
         ################
-        
+        #spawn enemies
+        #print(local_player.spawnTime)
+
+        #only 5 enemies on screen
+        if(local_player.spawnTime > 0.4 and len(entity_list) < 5):
+            local_player.spawnTime = 0
+            entity_list.append(c_base_enemy.base_enemy(
+            pygame.Vector2(random.randrange(200, 800), random.randrange(200, 600))))
+
+
+
         #event loop
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -64,7 +80,7 @@ def main():
         if keys[pygame.K_d]:
             local_player.pos.x += local_player.movement_speed_orig * dt
         if keys[pygame.K_SPACE]:
-            if local_player.time_since_last_shot > 0.2:
+            if local_player.time_since_last_shot > 0.17:
                 local_player.time_since_last_shot = 0
                 bullet_list.append(c_bullet.bullet(local_player.pos.x, local_player.pos.y, local_player.direction))
 
@@ -79,6 +95,8 @@ def main():
             debug.add("bullet pos", pygame.Color("black"), (bullet.x, bullet.y))
             for eidx, entity in enumerate(entity_list):
                 if point_in_circle((bullet.x, bullet.y), entity.pos, entity.radius):
+                    killAmmount += 1
+                    print("rip")
                     bullet_list.pop(bidx)
                     entity_list.pop(eidx)
                     debug.add("bullet colliding", pygame.Color("red"))
@@ -93,7 +111,7 @@ def main():
         #clear screen
         window.blit(background, (0, 0))
         background.fill(pygame.Color('#ffffff'))
-        
+        debug.add(f'KILLS:{killAmmount} ', pygame.Color("red"))
         debug.add(dt, pygame.Color("black"))
         debug.add("player", pygame.Color("blue"), local_player.pos)
         
@@ -104,6 +122,7 @@ def main():
             entity.draw(window)
         for bullet in bullet_list:
             bullet.draw(window)
+
 
         #display debug text
         debug.draw_flush(window)
