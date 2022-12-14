@@ -24,7 +24,7 @@ def main():
     pygame.display.set_caption('Gun Blazers')
 
     debug = debug_text()
-    debug.add_perma("Hello", pygame.Color("black"))
+    debug.add_perma("Gun Blazers", pygame.Color("black"))
 
     #set cursor icon
     pygame.mouse.set_cursor(pygame.cursors.diamond)
@@ -55,11 +55,14 @@ def main():
         #spawn enemies
         #print(local_player.spawnTime)
 
-        #only 5 enemies on screen
-        if(local_player.spawnTime > 0.4 and len(entity_list) < 5):
+        #fuck it spawn infinite
+        if(local_player.spawnTime > 0.4):
             local_player.spawnTime = 0
+            dir = random.randrange(0, 360)
+            dist = 1000
             entity_list.append(c_base_enemy.base_enemy(
-            pygame.Vector2(random.randrange(200, 800), random.randrange(200, 600))))
+            pygame.Vector2(math.cos(math.radians(dir)) * dist, math.sin(math.radians(dir)) * dist),
+            "enemy.png"))
 
 
 
@@ -91,16 +94,20 @@ def main():
             entity.update(dt, local_player)
         
         for bidx, bullet in enumerate(bullet_list):
-            bullet.update()
-            debug.add("bullet pos", pygame.Color("black"), (bullet.x, bullet.y))
+            hit = False
+            bullet.update(dt)
+            #debug.add("bullet pos", pygame.Color("black"), (bullet.x, bullet.y))
             for eidx, entity in enumerate(entity_list):
                 if point_in_circle((bullet.x, bullet.y), entity.pos, entity.radius):
+                    hit = True
                     killAmmount += 1
                     print("rip")
-                    bullet_list.pop(bidx)
+                    
                     entity_list.pop(eidx)
-                    debug.add("bullet colliding", pygame.Color("red"))
+                    #debug.add("bullet colliding", pygame.Color("red"))
                     continue
+            if hit:
+                bullet_list.pop(bidx)
                 
 
 
@@ -111,9 +118,11 @@ def main():
         #clear screen
         window.blit(background, (0, 0))
         background.fill(pygame.Color('#ffffff'))
-        debug.add(f'KILLS:{killAmmount} ', pygame.Color("red"))
-        debug.add(dt, pygame.Color("black"))
-        debug.add("player", pygame.Color("blue"), local_player.pos)
+        #debug.add(f"frametime: {dt}", pygame.Color("black"))
+        #debug.add("player", pygame.Color("blue"), local_player.pos)
+        debug.add("",pygame.Color("white"))
+        debug.add("",pygame.Color("white"))
+        debug.add(f'KILLS: {killAmmount} ', pygame.Color("red"))
         
 
         #draw entities

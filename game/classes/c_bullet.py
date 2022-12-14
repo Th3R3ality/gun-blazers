@@ -18,7 +18,7 @@ class bullet:
         self.enemy_pos = pygame.Vector2(0, 0)
         self.dist_bullet_enemy = 0
         self.radius = 3
-        self.speed = 1
+        self.speed = 250
         self.x = x
         self.y = y
         self.pos = pygame.Vector2(self.x, self.y)
@@ -27,17 +27,17 @@ class bullet:
         dist_bullet_enemy = self.pos - enemy_pos
         return dist_bullet_enemy
 
-    def update(self):
+    def update(self, dt):
         #debug
         print("BulletDirection: " + str(self.direction))
         #move bullet
         #pygame.transform.rotate(self.image_orig, self.direction)
-        self.x += self.speed * math.cos(math.radians(self.direction + 90)) 
-        self.y -= self.speed * math.sin(math.radians(self.direction + 90))
+        self.x += self.speed * math.cos(math.radians(self.direction + 90)) * dt 
+        self.y -= self.speed * math.sin(math.radians(self.direction + 90)) * dt
         #check collision
         #find dinstance and check if its lower than radius
         self.get_dist(self.enemy_pos)
 
     def draw(self, surface):
-        pygame.draw.circle(surface, (255, 0, 0), (self.x, self.y), self.radius)
+        pygame.draw.circle(surface, (0, 0, 0), (self.x, self.y), self.radius)
 
