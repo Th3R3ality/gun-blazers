@@ -29,7 +29,7 @@ class bullet:
 
     def update(self, dt):
         #debug
-        print("BulletDirection: " + str(self.direction))
+        #print("BulletDirection: " + str(self.direction))
         #move bullet
         #pygame.transform.rotate(self.image_orig, self.direction)
         self.x += self.speed * math.cos(math.radians(self.direction + 90)) * dt 
